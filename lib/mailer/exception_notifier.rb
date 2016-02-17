@@ -20,7 +20,8 @@ module Lipsiadmin
       cattr_accessor :email_prefix
 
       self.mailer_name = "exception"
-      self.template_root = "#{File.dirname(__FILE__)}"
+      # self.template_root = "#{File.dirname(__FILE__)}"
+      layout "#{File.dirname(__FILE__)}"
 
       def self.reloadable?#:nodoc:
         false

@@ -1,3 +1,4 @@
+require 'version'
 require 'utils/html_entities'
 require 'utils/literal'
 require 'utils/pdf_builder'
@@ -23,7 +24,6 @@ require 'data_base/attachment'
 require 'data_base/attachment_table'
 require 'data_base/utility_scopes'
 require 'haml'
-require 'version'
 require 'generator'
 
 Haml.init_rails(binding)

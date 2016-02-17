@@ -172,7 +172,8 @@ module Lipsiadmin
           "Yemen", "Zambia", "Zimbabwe"] unless const_defined?("COUNTRIES")
       end
 
-      class InstanceTag < ActionView::Helpers::InstanceTag#:nodoc:
+      class InstanceTag
+        include ActionView::Helpers::ActiveModelInstanceTag#:nodoc:
         include CountrySelectHelper
 
         def to_ext_date_select_tag(options = {}, html_options = {})

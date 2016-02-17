@@ -20,7 +20,7 @@ module Lipsiadmin
         subclass.extend(ClassMethods)
       end
 
-      set_table_name "attachments"
+      table_name = "attachments"
 
       belongs_to :attacher, :polymorphic => true
       after_save :save_attached_files

@@ -1,23 +1,13 @@
-require 'rubygems'
+require 'rdoc/task'
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
 require 'rake/packagetask'
-require 'rake/gempackagetask'
-require 'rake/contrib/sshpublisher'
-require "#{File.dirname(__FILE__)}/lib/version"
-
-PKG_NAME      = 'lipsiadmin'
-PKG_VERSION   = Lipsiadmin::VERSION::STRING
-PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
-
-$LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
 
 desc 'Default: install the gem.'
-task :default => [:install]
+task default: [:install]
 
 desc 'Generate documentation for the lipsiadmin plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = 'Lipsiadmin'
   rdoc.options << '--line-numbers' << '--inline-source' << '--accessor' << 'cattr_accessor=object'
@@ -27,22 +17,6 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-spec = Gem::Specification.new do |s|
-  s.name              = PKG_NAME
-  s.version           = PKG_VERSION
-  s.author            = "Davide D'Agostino"
-  s.email             = "d.dagostino@lipsiasoft.com"
-  s.homepage          = "http://www.lipsiadmin.com"
-  s.rubyforge_project = "lipsiadmin"
-  s.platform          = Gem::Platform::RUBY
-  s.summary           = "Lipsiadmin is a new revolutionary admin for your projects.Lipsiadmin is based on Ext Js 2.0. framework (with prototype adapter) and is ready for Rails 2.0. This admin is for newbie developper but also for experts, is not entirely written in javascript because the aim of developper wose build in a agile way web/site apps so we use extjs in a new intelligent way a mixin of 'old' html and new ajax functions, for example ext manage the layout of page, grids, tree and errors, but form are in html code."
-  s.files             = FileList["CHANGELOG", "README.rdoc", "MIT-LICENSE", "Rakefile", "init.rb", "{lipsiadmin_generators,lib,resources,tasks}/**/*"].to_a
-  s.has_rdoc          = true
-  s.requirements << "ImageMagick"
-  s.add_dependency('haml', '<= 3.0.18')
-  s.add_dependency('rails', '>= 2.2.1')
-end
-
 desc 'Clean up files.'
 task :clean do |t|
   FileUtils.rm_rf "doc"
@@ -50,36 +24,30 @@ task :clean do |t|
   FileUtils.rm_rf "pkg"
 end
 
-Rake::GemPackageTask.new(spec) do |p|
-  p.gem_spec = spec
-  p.need_tar = true
-  p.need_zip = true
-end
-
 desc "Install the gem locally"
-task :install => [:uninstall, :repackage] do
+task install: [:uninstall] do
   sh %{gem install pkg/#{PKG_FILE_NAME}.gem --no-ri --no-rdoc}
 end
 
 desc "Unistall the gem from local"
-task :uninstall => [:clean] do
+task uninstall: [:clean] do
   sh %{gem uninstall #{PKG_NAME}} rescue nil
 end
 
 desc "Generate a gemspec file for GitHub"
 task :gemspec do
-  File.open("#{spec.name}.gemspec", 'w') do |f|
-    f.write spec.to_ruby
+  File.open("#{PKG_NAME}.gemspec", 'w') do |f|
+    f.write gemspec.to_ruby
   end
 end
 
 desc "Publish the API documentation"
-task :pdoc => [:rdoc] do
+task pdoc: [:rdoc] do
   Rake::SshDirPublisher.new("root@lipsiasoft.net", "/mnt/www/apps/lipsiasoft/doc", "doc").upload
 end
 
-desc "Publish the release files to RubyForge."
+desc "Publish the release files to RubyGems."
 desc "Release the gem"
-task :release => :package do
-  sh "gem push pkg/#{spec.name}-#{spec.version}.gem"
+task release: :package do
+  sh "gem push pkg/#{PKG_NAME}-#{PKG_VERSION}.gem"
 end

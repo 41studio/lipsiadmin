@@ -28,7 +28,7 @@ module Lipsiadmin
       end
 
       @@pd4ruby_path = "#{File.dirname(__FILE__)}/../../resources/pd4ml/ruby"
-      @@view_path    = "#{RAILS_ROOT}/app/views/pdf"
+      @@view_path    = "#{Rails.root}/app/views/pdf"
 
       cattr_accessor :jars_path
       cattr_accessor :pd4ruby_path

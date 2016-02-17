@@ -15,7 +15,7 @@ module Lipsiadmin#:nodoc:
       # Append my sources
       def use_component_sources_with_lipsiadmin!
         use_component_sources_without_lipsiadmin!
-        sources << Rails::Generator::PathSource.new(:lipsiadmin, "#{File.dirname(__FILE__)}/../lipsiadmin_generators")
+        sources << Rails::Generator::PathSource.new(:lipsiadmin, "#{File.dirname(__FILE__)}/lib/generators")
       end
 
     end

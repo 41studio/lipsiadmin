@@ -134,7 +134,7 @@ module Lipsiadmin
 
     class ProjectModule
       include Helper
-      include ActionController::UrlWriter
+      include ActionDispatch::Routing::UrlFor
       attr_reader :name, :menus, :url
 
       def initialize(name, path=nil, options={}, &block)#:nodoc:
@@ -181,7 +181,7 @@ module Lipsiadmin
 
     class Menu
       include Helper
-      include ActionController::UrlWriter
+      include ActionDispatch::Routing::UrlFor
       attr_reader :name, :options, :items
 
       def initialize(name, path=nil, options={}, &block)#:nodoc:
