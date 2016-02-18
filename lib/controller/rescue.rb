@@ -19,7 +19,8 @@ module Lipsiadmin
 
       def self.included(base)#:nodoc:
         base.class_eval do
-          alias_method_chain :rescue_action_in_public, :notifier
+          # deprecated
+          # alias_method_chain :rescue_action_in_public, :notifier
         end
       end
 

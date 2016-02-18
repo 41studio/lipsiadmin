@@ -15,22 +15,22 @@ module Lipsiadmin
     module UtilityScopes
       def self.included(base)#:nodoc:
         base.class_eval do
-          named_scope :ext_search, lambda { |params|
-            order = params[:sort].blank? && params[:dir].blank? ? nil : "#{params[:sort]} #{params[:dir]}"
-            conditions = nil
+          # scope :ext_search, lambda { |params|
+          #   order = params[:sort].blank? && params[:dir].blank? ? nil : "#{params[:sort]} #{params[:dir]}"
+          #   conditions = nil
 
-            if !params[:query].blank? && !params[:fields].blank?
-              filters = params[:fields].split(",").collect { |f| "#{f} LIKE ?" }.compact
-              conditions = [filters.join(" OR ")].concat((1..filters.size).collect { "%#{params[:query]}%" })
-            end
+          #   if !params[:query].blank? && !params[:fields].blank?
+          #     filters = params[:fields].split(",").collect { |f| "#{f} LIKE ?" }.compact
+          #     conditions = [filters.join(" OR ")].concat((1..filters.size).collect { "%#{params[:query]}%" })
+          #   end
 
-            { :conditions => conditions }
-          }
-          named_scope :ext_paginate, lambda { |params|
-            order = params[:sort].blank? && params[:dir].blank? ? nil : "#{params[:sort]} #{params[:dir]}"
-            { :order => order, :limit => params[:limit], :offset => params[:start] }
-          }
-          named_scope :with, lambda { |*associations| { :include => associations } }
+          #   { :conditions => conditions }
+          # }
+          # scope :ext_paginate, lambda { |params|
+          #   order = params[:sort].blank? && params[:dir].blank? ? nil : "#{params[:sort]} #{params[:dir]}"
+          #   { :order => order, :limit => params[:limit], :offset => params[:start] }
+          # }
+          # scope :with, lambda { |*associations| { :include => associations } }
 
           # You or your plugins (ex: will_paginate) now can override the search/paginate
           # at the moment we can't remove them for backward compatibility.

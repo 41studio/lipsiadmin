@@ -29,6 +29,7 @@ gemspec = Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.4"
   spec.add_development_dependency "haml", "~> 4.0"
   spec.add_development_dependency 'rails', '~> 4.2', '>= 4.2.5.1'
+  spec.add_development_dependency 'bartt-ssl_requirement', '~>1.4.0'
 end
 
 # Gem::PackageTask.new(gemspec) do |pkg|

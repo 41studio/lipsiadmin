@@ -1,7 +1,7 @@
 require 'rdoc/task'
 require 'rake'
 require 'rake/testtask'
-require 'rake/packagetask'
+require 'bundler/gem_tasks'
 
 desc 'Default: install the gem.'
 task default: [:install]
@@ -22,11 +22,6 @@ task :clean do |t|
   FileUtils.rm_rf "doc"
   FileUtils.rm_rf "tmp"
   FileUtils.rm_rf "pkg"
-end
-
-desc "Install the gem locally"
-task install: [:uninstall] do
-  sh %{gem install pkg/#{PKG_FILE_NAME}.gem --no-ri --no-rdoc}
 end
 
 desc "Unistall the gem from local"

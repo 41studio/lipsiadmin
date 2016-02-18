@@ -4,7 +4,8 @@ module Lipsiadmin
     module Helper#:nodoc:
       def recognize_path(path)#:nodoc:
         case path
-          when String then ActionController::Routing::Routes.recognize_path(path, :method => :get)
+          # when String then ActionController::Routing::Routes.recognize_path(path, :method => :get)
+          when String then Rails.application.routes.recognize_path(path, :method => :get)
           when Hash   then path
         end
       end

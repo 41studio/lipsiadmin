@@ -7,6 +7,7 @@ module Lipsiadmin#:nodoc:
     #   helper Lipsiadmin::View::Helpers::BackendHelper
     #
     class Base < ActionController::Base
+      include Lipsiadmin::AccessControl::Authentication
       def self.inherited(subclass)#:nodoc:
         super
         subclass.layout false

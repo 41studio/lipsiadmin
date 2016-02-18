@@ -47,9 +47,10 @@ end
 
 ActionView::Helpers::FormBuilder.send(:include, Lipsiadmin::View::Helpers::FormBuilder)
 
-ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods.class_eval do
-  include Lipsiadmin::View::Helpers::ExtHelper
-end
+# deprecated
+# ActionView::Helpers::PrototypeHelper::JavaScriptGenerator::GeneratorMethods.class_eval do
+#   include Lipsiadmin::View::Helpers::ExtHelper
+# end
 
 ActionController::Base.class_eval do
   include Lipsiadmin::Controller::Rescue
@@ -71,16 +72,20 @@ File.send(:include, Lipsiadmin::Attachment::Upfile)
 Object.send(:include, Lipsiadmin::Utils::Literal)
 
 # Custom CSS and JS
-ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :backend => ["ext", "standard", "backend"]# Not ready for ext 3.0, :backend_slate => ["ext", "ext-slate", "standard", "backend-slate"]
-ActionView::Helpers::AssetTagHelper.register_javascript_expansion :backend => ["ext", "locale", "backend"]
-ActionView::Helpers::AssetTagHelper.register_javascript_expansion :ext     => ["ext", "locale"]
+include ActionView::Helpers::AssetTagHelper
+stylesheet_link_tag :backend => ["ext", "standard", "backend"]# Not ready for ext 3.0, :backend_slate => ["ext", "ext-slate", "standard", "backend-slate"]
+javascript_include_tag :backend => ["ext", "locale", "backend"]
+javascript_include_tag :ext     => ["ext", "locale"]
 
 # Add a better organization of locales
-I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', 'backend',  '*.{rb,yml}')]
-I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', 'frontend', '*.{rb,yml}')]
-I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', 'models',   '*.{rb,yml}')]
-I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', 'models',   '**/*.{rb,yml}')]
-I18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', 'rails',    '*.{rb,yml}')]
+if Rails.root.present?
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'backend',  '*.{rb,yml}')]
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'frontend', '*.{rb,yml}')]
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'models',   '*.{rb,yml}')]
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'models',   '**/*.{rb,yml}')]
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'rails',    '*.{rb,yml}')]
+  I18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', 'backend',  '*.{rb,yml}')]
+end
 
 # Load generator languages
 I18n.load_path << File.dirname(__FILE__) + '/locale/it.yml'

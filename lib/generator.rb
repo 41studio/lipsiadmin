@@ -1,5 +1,5 @@
-require 'rails_generator'
-require 'rails_generator/commands'
+# require 'rails_generator'
+# require 'rails_generator/commands'
 require 'find'
 
 module Lipsiadmin#:nodoc:
@@ -108,7 +108,7 @@ module Lipsiadmin#:nodoc:
 end # Module Backend
 
 # For Backend Generators
-Rails::Generator::Commands::Create.send(:include, Lipsiadmin::Generator::Commands::Create)
-Rails::Generator::Commands::Destroy.send(:include, Lipsiadmin::Generator::Commands::Destroy)
-Rails::Generator::Lookup::ClassMethods.send(:include, Lipsiadmin::Generator::Lookup)
-Rails::Generator::Base.send(:include, Rails::Generator::Lookup)
+# Rails::Generator::Commands::Create.send(:include, Lipsiadmin::Generator::Commands::Create)
+# Rails::Generator::Commands::Destroy.send(:include, Lipsiadmin::Generator::Commands::Destroy)
+# Rails::Generator::Lookup::ClassMethods.send(:include, Lipsiadmin::Generator::Lookup)
+# Rails::Generator::Base.send(:include, Rails::Generator::Lookup)

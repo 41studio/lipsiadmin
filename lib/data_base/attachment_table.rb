@@ -14,7 +14,7 @@ module Lipsiadmin
     class AttachmentTable < ActiveRecord::Base
       def self.inherited(subclass)#:nodoc:
         super
-        subclass.write_inheritable_attribute(:attachment_definitions, {}) if subclass.attachment_definitions.nil?
+        subclass.class_attributes(:attachment_definitions, {}) if subclass.attachment_definitions.nil?
         subclass.attachment_definitions[subclass.name] = {:validations => {}}.merge(Lipsiadmin::Attachment.options)
         subclass.send(:include, Lipsiadmin::DataBase::UtilityScopes)
         subclass.extend(ClassMethods)
