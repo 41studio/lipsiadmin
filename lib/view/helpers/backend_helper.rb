@@ -183,7 +183,7 @@ module Lipsiadmin
         def backend_menu
           config = AccountAccess.maps_for(current_account).collect(&:project_modules).flatten.uniq.collect(&:config)
           config << { :text => I18n.t("backend.menus.help", :default => "Help"), :handler => "function() { Backend.app.openHelp() }".to_l }
-          return config.to_json
+          return config.to_json.html_safe
         end
 
         # Returns html for upload one image or generic file.

@@ -12,7 +12,7 @@ module Lipsiadmin
       # expression as an argument to another JavaScriptGenerator method.
       #
       def to_literal
-        ActiveSupport::JSON::Variable.new(self.to_s)
+        ActiveSupport::JSON.encode(self.to_s)
       end
       alias_method :to_l, :to_literal
     end
