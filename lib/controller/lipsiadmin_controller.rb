@@ -8,12 +8,9 @@ module Lipsiadmin#:nodoc:
     #
     class Base < ActionController::Base
       include Lipsiadmin::AccessControl::Authentication
-      def self.inherited(subclass)#:nodoc:
-        super
-        subclass.layout false
-        subclass.before_filter :backend_login_required
-        subclass.helper Lipsiadmin::View::Helpers::BackendHelper
-      end
+      layout false
+      before_action :backend_login_required
+      helper Lipsiadmin::View::Helpers::BackendHelper
     end
   end
 end

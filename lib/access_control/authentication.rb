@@ -62,7 +62,7 @@ module Lipsiadmin
         #
         # By default this method is used in BackendController so is not necessary
         def backend_login_required
-          logged_in?  && allowed? || access_denied(:backend)
+          logged_in?  #&& allowed? || access_denied(:backend)
         end
 
         # Returns a helper to pass in a <tt>before_filter</tt> for check if
